@@ -1,0 +1,14 @@
+OrdererOrgs:
+  - Name: KaizenOrderer
+    Domain: kaizen-solutions.net
+    Specs:
+      - Hostname: orderer
+
+PeerOrgs:
+  - Name: LabOrg
+    Domain: lab.kaizen-solutions.net
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+    Users:
+      Count: 1
