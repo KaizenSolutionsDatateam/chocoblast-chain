@@ -1,9 +1,16 @@
-# KZS-Chocoblast-Chain
-Installation guide for the Kaizen Hyperledger Fabric
+# KZS-Chocoblastchain
+
+The KZS-Chocoblastchain is a prototype of a private blockchain dedicated to keeping score of who has been [chocoblasted](http://www.chocoblast.fr/) within a company and validating the fulfilment of one's duty via Smart Contracts.
+
+It is based on [Hyperledger Fabric](https://hyperledger-fabric.readthedocs.io/en/latest/blockchain.html).
+
 
 ## Hyperledger Fabric installation
 
-_TODO_
+[Prerequisites](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html)
+
+[Samples, Binaries and Docker Images](https://hyperledger-fabric.readthedocs.io/en/latest/install.html)
+
 
 ## Network configuration
 
@@ -16,6 +23,7 @@ __REMEMBER__
 * To change the name of the ``FABRIC_CA_SERVER_TLS_KEYFILE`` using the generated name under ``crypto-config/peerOrganizations/lab.kaizen-solutions.net/ca/`` (ex: 31bd33998ce74f094307f082eb5578f5e77d618039d4967d26a09c754de5631f_sk)
 
 * And in the ``command`` as well.
+
 
 ## Network initialization
 
@@ -39,5 +47,3 @@ The file ``docker-compose-e2e.yaml`` is used to launch the whole network on one 
 ````bash
 docker-compose -f docker-compose-e2e.yaml up -d
 ````
-
-
