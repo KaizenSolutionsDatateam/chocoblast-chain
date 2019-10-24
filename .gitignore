@@ -1,2 +1,4 @@
-.env
+network/.env
 .idea
+/network/crypto-config/
+/network/channel-artifacts/

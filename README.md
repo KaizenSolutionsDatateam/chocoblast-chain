@@ -11,6 +11,9 @@ It is based on [Hyperledger Fabric](https://hyperledger-fabric.readthedocs.io/en
 
 [Samples, Binaries and Docker Images](https://hyperledger-fabric.readthedocs.io/en/latest/install.html)
 
+````bash
+curl -sSL http://bit.ly/2ysbOFE | bash -s
+````
 
 ## Network configuration
 
@@ -18,14 +21,9 @@ It is based on [Hyperledger Fabric](https://hyperledger-fabric.readthedocs.io/en
 2. __Create file ``configtx.yaml`` :__ Configuration of the organization
 3. __Create file ``.env`` :__ Configuration of environment variables such as ``IMAGE_TAG=1.4.3``
 
-__REMEMBER__
-
-* To change the name of the ``FABRIC_CA_SERVER_TLS_KEYFILE`` using the generated name under ``crypto-config/peerOrganizations/lab.kaizen-solutions.net/ca/`` (ex: 31bd33998ce74f094307f082eb5578f5e77d618039d4967d26a09c754de5631f_sk)
-
-* And in the ``command`` as well.
-
-
 ## Network initialization
+
+Navigate to the ``network/`` folder (``cd network``).
 
 ### Generate network cryptographic material
 ````bash
@@ -42,8 +40,25 @@ configtxgen -profile KaizenChannel -outputAnchorPeersUpdate ./channel-artifacts/
 
 ## Launch the network
 
-The file ``docker-compose-e2e.yaml`` is used to launch the whole network on one machine :
+Sample ``.env`` file:
+
+````dotenv
+IMAGE_TAG=1.4.3
+FABRIC_CA_SERVER_TLS_KEYFILE=6b386ec770eaa4ff65ef703851009558ed957b8beb03523a8e4426509d95150d_sk
+COMPOSE_PROJECT_NAME=Chocoblastchain
+
+````
+
+You need to replace the ``FABRIC_CA_SERVER_TLS_KEYFILE`` value by __the name of the file__ under ``/network/crypto-config/peerOrganizations/lab.kaizen-solutions.net/ca/``
+
+----
+
+Then the file ``docker-compose.yaml`` is used to launch the whole network on one machine :
 
 ````bash
-docker-compose -f docker-compose-e2e.yaml up -d
+docker-compose -f docker-compose.yaml up -d
 ````
+
+## Chaincodes
+
+
