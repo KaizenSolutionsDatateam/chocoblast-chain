@@ -16,7 +16,7 @@ services:
     volumes:
       - ./crypto-config/peerOrganizations/lab.kaizen-solutions.net/ca/:/etc/hyperledger/fabric-ca-server-config
     networks:
-      - chocoblast-chain
+      - chocoblastchain
 
   orderer.kaizen-solutions.net:
     image: hyperledger/fabric-orderer:$IMAGE_TAG
@@ -42,14 +42,14 @@ services:
     ports:
       - 7050:7050
     networks:
-      - chocoblast-chain
+      - chocoblastchain
 
   peer0.lab.kaizen-solutions.net:
     container_name: peer0.lab.kaizen-solutions.net
     image: hyperledger/fabric-peer:$IMAGE_TAG
     environment:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_kaizen
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=chocoblastchain
       - CORE_LOGGING_LEVEL=INFO
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
@@ -64,7 +64,7 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.lab.kaizen-solutions.net:7051
       - CORE_PEER_LOCALMSPID=LabOrgMSP
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
-    command: peer node start
+    command: peer node start --peer-chaincodedev=$CHAINCODE_DEV
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/lab.kaizen-solutions.net/peers/peer0.lab.kaizen-solutions.net/msp:/etc/hyperledger/fabric/msp
@@ -75,14 +75,14 @@ services:
       - 7053:7053
       - 7055:6060
     networks:
-      - chocoblast-chain
+      - chocoblastchain
 
   peer1.lab.kaizen-solutions.net:
     image: hyperledger/fabric-peer:$IMAGE_TAG
     container_name: peer1.lab.kaizen-solutions.net
     environment:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_kaizen
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=chocoblastchain
       - CORE_LOGGING_LEVEL=INFO
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
@@ -97,7 +97,7 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.lab.kaizen-solutions.net:8051
       - CORE_PEER_LOCALMSPID=LabOrgMSP
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
-    command: peer node start
+    command: peer node start --peer-chaincodedev=$CHAINCODE_DEV
     volumes:
       - /var/run/:/host/var/run/
       - ./crypto-config/peerOrganizations/lab.kaizen-solutions.net/peers/peer1.lab.kaizen-solutions.net/msp:/etc/hyperledger/fabric/msp
@@ -108,10 +108,35 @@ services:
       - 8053:7053
       - 8055:6060
     networks:
-      - chocoblast-chain
+      - chocoblastchain
+
+  cli:
+    container_name: cli
+    image: hyperledger/fabric-tools
+    tty: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.lab.kaizen-solutions.net:7051
+      - CORE_PEER_LOCALMSPID=DEFAULT
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp
+    working_dir: /opt/gopath/src/chaincodedev
+    command: /bin/bash -c './init_channel.sh'
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/lab.kaizen-solutions.net/peers/peer0.lab.kaizen-solutions.net/msp:/etc/hyperledger/msp
+      - ./../chaincode:/opt/gopath/src/chaincodedev/chaincode
+      - ./:/opt/gopath/src/chaincodedev/
+    depends_on:
+      - orderer.kaizen-solutions.net
+      - peer0.lab.kaizen-solutions.net
+    networks:
+      - chocoblastchain
 
 networks:
-  chocoblast-chain:
+  chocoblastchain:
 
 volumes:
   orderer.kaizen-solutions.net:
