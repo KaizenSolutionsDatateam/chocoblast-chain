@@ -56,7 +56,7 @@ You need to replace the ``FABRIC_CA_SERVER_TLS_KEYFILE`` value by __the name of 
 Then the file ``docker-compose.yaml`` is used to launch the whole network on one machine :
 
 ````bash
-docker-compose -f docker-compose.yaml up -d
+docker-compose up --build -d
 ````
 
 ## Chaincodes
@@ -67,6 +67,12 @@ Navigate to the ``chaincode/`` folder (``cd chaincode``).
 
 ### 1. Create & Join channel
 
+
+https://stackoverflow.com/questions/54783486/cannot-run-peer-because-error-when-setting-up-msp-of-type-bccsp-from-directory
+
+````bash
+docker-compose up --build -d
+````
 
 
 ### 2. Run the chaincode
