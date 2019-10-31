@@ -1,0 +1,14 @@
+{
+  "name": "chocoblast-cc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "chaincode.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rémi Tod",
+  "license": "ISC",
+  "dependencies": {
+    "fabric-shim": "^1.4.2"
+  }
+}

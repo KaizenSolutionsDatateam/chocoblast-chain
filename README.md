@@ -17,6 +17,8 @@ curl -sSL http://bit.ly/2ysbOFE | bash -s
 
 ## Network configuration
 
+Based on : [Build Your First Network](https://hyperledger-fabric.readthedocs.io/en/release-1.4/build_network.html)
+
 1. __Create file ``crypto-config.yaml`` :__ Definition of the global organization
 2. __Create file ``configtx.yaml`` :__ Configuration of the organization
 3. __Create file ``.env`` :__ Configuration of environment variables such as ``IMAGE_TAG=1.4.3``

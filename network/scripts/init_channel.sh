@@ -11,11 +11,11 @@ set -e
 
 # first we create the channel against the specified configuration in myc.tx
 # this call returns a channel configuration block - myc.block - to the CLI container
-peer channel create -c kaizenchannel -f ./channel-artifacts/channel.tx -o orderer.kaizen-solutions.net:7050
+peer channel create -c kaizenchannel -f ./../channel-artifacts/channel.tx -o orderer.kaizen-solutions.net:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/kaizen-solutions.net/orderers/orderer.kaizen-solutions.net/msp/tlscacerts/tlsca.kaizen-solutions.net-cert.pem
 
 # now we will join the channel and start the chain with myc.block serving as the
 # channel's first block (i.e. the genesis block)
-peer channel join -b ./channel-artifacts/genesis.block
+peer channel join -b ./../channel-artifacts/genesis.block
 
 # Now the user can proceed to build and start chaincode in one terminal
 # And leverage the CLI container to issue install instantiate invoke query commands in another

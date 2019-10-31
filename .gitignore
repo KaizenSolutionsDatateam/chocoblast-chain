@@ -1,5 +1,7 @@
 network/.env
 chaincode/.env
+/network/chaincode/.env
+
 .idea
 /network/crypto-config/
 /network/channel-artifacts/

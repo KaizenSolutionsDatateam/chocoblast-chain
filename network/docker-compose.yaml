@@ -38,7 +38,7 @@ services:
       - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
       - ./crypto-config/ordererOrganizations/kaizen-solutions.net/orderers/orderer.kaizen-solutions.net/msp:/var/hyperledger/orderer/msp
       - ./crypto-config/ordererOrganizations/kaizen-solutions.net/orderers/orderer.kaizen-solutions.net/tls/:/var/hyperledger/orderer/tls
-#      - orderer.kaizen-solutions.net:/var/hyperledger/production/orderer
+      - orderer.kaizen-solutions.net:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
     networks:
@@ -122,17 +122,23 @@ services:
       - CORE_PEER_ID=cli
       - CORE_PEER_ADDRESS=peer0.lab.kaizen-solutions.net:7051
       - CORE_PEER_LOCALMSPID=LabOrgMSP
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp
-    working_dir: /opt/gopath/src/chaincodedev
-    command: /bin/bash -c './init_channel.sh'
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/lab.kaizen-solutions.net/peers/peer0.lab.kaizen-solutions.net/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/lab.kaizen-solutions.net/peers/peer0.lab.kaizen-solutions.net/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/lab.kaizen-solutions.net/peers/peer0.lab.kaizen-solutions.net/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/lab.kaizen-solutions.net/users/Admin@lab.kaizen-solutions.net/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
     volumes:
       - /var/run/:/host/var/run/
-      - ./crypto-config/peerOrganizations/lab.kaizen-solutions.net/peers/peer0.lab.kaizen-solutions.net/msp:/etc/hyperledger/msp
-      - ./../chaincode:/opt/gopath/src/chaincodedev/chaincode
-      - ./:/opt/gopath/src/chaincodedev/
+      - ./../chaincode/:/opt/gopath/src/github.com/chaincode
+      - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+      - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+      - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     depends_on:
       - orderer.kaizen-solutions.net
       - peer0.lab.kaizen-solutions.net
+      - peer1.lab.kaizen-solutions.net
     networks:
       - chocoblastchain
 

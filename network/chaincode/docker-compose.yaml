@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+  chocoblastcc:
+    container_name: chocoblastcc
+    image: chocoblastcc
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    networks:
+      - chocoblastchain
+    environment:
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/lab.kaizen-solutions.net/users/Admin@lab.kaizen-solutions.net/msp
+      - CORE_PEER_ADDRESS=peer0.lab.kaizen-solutions.net:7051
+      - CORE_PEER_LOCALMSPID="LabOrgMSP"
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/lab.kaizen-solutions.net/peers/peer0.lab.kaizen-solutions.net/tls/ca.crt
+
+networks:
+  chocoblastchain:
