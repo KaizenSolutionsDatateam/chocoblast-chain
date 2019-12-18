@@ -33,7 +33,7 @@ If a configuration has already been launched, execute stop & clean scripts:
 
 ## Create & join channel
 ````bash
-./sart.sh
+./start.sh
 ````
 
 ----
