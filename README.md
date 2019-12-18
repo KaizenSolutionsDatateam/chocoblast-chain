@@ -26,12 +26,12 @@ If a configuration has already been launched, execute stop & clean scripts:
 ./clean.sh
 ````
 
-### Generate channel artifacts
+### 1. Generate channel artifacts
 ````bash
 ./generate.sh
 ````
 
-## Create & join channel
+### 2. Create & join channel
 ````bash
 ./start.sh
 ````
@@ -60,3 +60,13 @@ If a configuration has already been launched, execute clean script:
 ````bash
 ./launch.sh
 ````
+
+### 3. Customization
+
+In install.sh script, you can change the following line in the chaincode instantiation.
+````bash
+-c '{"Args":["init","a","100","b","200"]}'
+````
+This provides the initial state of the chaincode.
+
+In the launch.sh script, you can change query and invoke commands in order to match your chaincode initial state.
