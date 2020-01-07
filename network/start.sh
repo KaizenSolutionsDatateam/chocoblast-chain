@@ -10,7 +10,7 @@ set -ev
 # load environment variables
 export MSYS_NO_PATHCONV=1
 source ./.env
-ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/kaizen-solutions.net/msp/tlscacerts/tlsca.kaizen-solutions.net-cert.pem
+export KZS_CA_PRIVATE_KEY=$(cd crypto-config/peerOrganizations/lab.kaizen-solutions.net/ca && ls *_sk)
 
 docker network create chocoblastchain || true
 

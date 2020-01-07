@@ -1,11 +1,7 @@
 #!/bin/bash
-#
-# Copyright IBM Corp All Rights Reserved
-#
-# SPDX-License-Identifier: Apache-2.0
-#
-# Exit on first error, print all commands.
-set -ev
+
+# Print all commands.
+set -v
 
 docker container rm orderer.kaizen-solutions.net peer0.lab.kaizen-solutions.net peer1.lab.kaizen-solutions.net cli ca_peerLabOrg
 

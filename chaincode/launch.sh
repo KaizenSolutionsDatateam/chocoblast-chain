@@ -9,8 +9,7 @@ set -ev
 
 # don't rewrite paths for Windows Git Bash users
 export MSYS_NO_PATHCONV=1
-CHANNEL_NAME=$(grep CHANNEL_NAME= ../network/.env | cut -d '=' -f2)
-ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/kaizen-solutions.net/msp/tlscacerts/tlsca.kaizen-solutions.net-cert.pem
+source ../network/.env
 
 docker exec \
   -e CORE_PEER_ADDRESS=peer0.lab.kaizen-solutions.net:7051 \
