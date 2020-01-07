@@ -2,10 +2,15 @@
   "name": "chocoblast-cc",
   "version": "1.0.0",
   "description": "",
-  "main": "chaincode.js",
+  "engines": {
+	"node": ">=8.4.0",
+	"npm": ">=5.3.0"
+  },
   "scripts": {
+    "start": "node chaincode.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engine-strict": true,
   "author": "Rémi Tod",
   "license": "ISC",
   "dependencies": {

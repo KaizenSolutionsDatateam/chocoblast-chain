@@ -1,3 +1,4 @@
+
 Organizations:
   - &KaizenOrdererOrg
     Name: KaizenOrdererOrg
@@ -9,7 +10,7 @@ Organizations:
         Rule: "OR('KaizenOrdererMSP.member')"
       Writers:
         Type: Signature
-        Rule: "OR('KaizenOrdererMSP.member')"
+        Rule: "OR('KaizenOrdererMSP.member', 'LabOrgMSP.admin')"
       Admins:
         Type: Signature
         Rule: "OR('KaizenOrdererMSP.admin')"
@@ -24,7 +25,7 @@ Organizations:
         Rule: "OR('LabOrgMSP.admin', 'LabOrgMSP.peer', 'LabOrgMSP.client')"
       Writers:
         Type: Signature
-        Rule: "OR('LabOrgMSP.admin', 'LabOrgMSP.client')"
+        Rule: "OR('LabOrgMSP.admin', 'LabOrgMSP.peer')"
       Admins:
         Type: Signature
         Rule: "OR('LabOrgMSP.admin')"
